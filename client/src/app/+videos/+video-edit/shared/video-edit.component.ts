@@ -79,7 +79,7 @@ export class VideoEditComponent implements OnInit, OnDestroy {
   // So that it can be accessed in the template
   readonly SPECIAL_SCHEDULED_PRIVACY = VideoEdit.SPECIAL_SCHEDULED_PRIVACY
 
-  videoPrivacies: VideoConstant<VideoPrivacy>[] = []
+  videoPrivacies: VideoConstant<VideoPrivacy | typeof VideoEdit.SPECIAL_SCHEDULED_PRIVACY>[] = []
   videoCategories: VideoConstant<number>[] = []
   videoLicences: VideoConstant<number>[] = []
   videoLanguages: VideoLanguages[] = []

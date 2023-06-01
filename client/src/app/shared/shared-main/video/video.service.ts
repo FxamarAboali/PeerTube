@@ -11,6 +11,7 @@ import {
   FeedFormat,
   NSFWPolicyType,
   ResultList,
+  Storyboard,
   UserVideoRate,
   UserVideoRateType,
   UserVideoRateUpdate,
@@ -339,6 +340,25 @@ export class VideoService {
                )
   }
 
+  // ---------------------------------------------------------------------------
+
+  getStoryboards (videoId: string | number) {
+    return this.authHttp
+      .get<{ storyboards: Storyboard[] }>(VideoService.BASE_VIDEO_URL + '/' + videoId + '/storyboards')
+      .pipe(
+        map(({ storyboards }) => storyboards),
+        catchError(err => {
+          if (err.status === 404) {
+            return of([])
+          }
+
+          this.restExtractor.handleError(err)
+        })
+      )
+  }
+
+  // ---------------------------------------------------------------------------
+
   getSource (videoId: number) {
     return this.authHttp
                .get<{ source: VideoSource }>(VideoService.BASE_VIDEO_URL + '/' + videoId + '/source')
@@ -353,6 +373,8 @@ export class VideoService {
                )
   }
 
+  // ---------------------------------------------------------------------------
+
   setVideoLike (id: string) {
     return this.setVideoRate(id, 'like')
   }
@@ -364,6 +386,8 @@ export class VideoService {
   unsetVideoLike (id: string) {
     return this.setVideoRate(id, 'none')
   }
+
+  // ---------------------------------------------------------------------------
 
   getUserVideoRating (id: string) {
     const url = UserService.BASE_USERS_URL + 'me/videos/' + id + '/rating'

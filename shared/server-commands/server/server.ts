@@ -34,6 +34,7 @@ import {
   LiveCommand,
   PlaylistsCommand,
   ServicesCommand,
+  StoryboardCommand,
   StreamingPlaylistsCommand,
   VideosCommand,
   VideoStudioCommand,
@@ -146,6 +147,8 @@ export class PeerTubeServer {
   twoFactor?: TwoFactorCommand
   videoToken?: VideoTokenCommand
   registrations?: RegistrationsCommand
+
+  storyboard?: StoryboardCommand
 
   runners?: RunnersCommand
   runnerRegistrationTokens?: RunnerRegistrationTokensCommand
@@ -433,6 +436,8 @@ export class PeerTubeServer {
     this.twoFactor = new TwoFactorCommand(this)
     this.videoToken = new VideoTokenCommand(this)
     this.registrations = new RegistrationsCommand(this)
+
+    this.storyboard = new StoryboardCommand(this)
 
     this.runners = new RunnersCommand(this)
     this.runnerRegistrationTokens = new RunnerRegistrationTokensCommand(this)

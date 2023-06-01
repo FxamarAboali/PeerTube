@@ -10,6 +10,7 @@ import {
   MChannelBannerAccountDefault,
   MChannelSyncChannel,
   MRegistration,
+  MStoryboardVideo,
   MStreamingPlaylist,
   MUserAccountUrl,
   MVideoChangeOwnershipFull,
