@@ -202,7 +202,6 @@ async function processFile (downloader: () => Promise<string>, videoImport: MVid
       // Create torrent
       await createTorrentAndSetInfoHash(videoImportWithFiles.Video, videoFile)
 
-
       const videoFileSave = videoFile.toJSON()
 
       const { videoImportUpdated, video } = await retryTransactionWrapper(() => {
