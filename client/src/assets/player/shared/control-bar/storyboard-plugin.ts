@@ -1,5 +1,4 @@
 import videojs from 'video.js'
-import { isMobile } from '@root-helpers/web-browser'
 import { StoryboardOptions } from '../../types'
 
 // Big thanks to this beautiful plugin: https://github.com/phloxic/videojs-sprite-thumbnails
