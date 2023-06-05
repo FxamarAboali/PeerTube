@@ -176,9 +176,9 @@ export class PeerTubeEmbed {
     const { uuid, autoplayFromPreviousVideo, forceAutoplay } = options
 
     try {
-      const { videoResponse, captionsPromise } = await this.videoFetcher.loadVideo(uuid)
+      const { videoResponse, captionsPromise, storyboardsPromise } = await this.videoFetcher.loadVideo(uuid)
 
-      return this.buildVideoPlayer({ videoResponse, captionsPromise, autoplayFromPreviousVideo, forceAutoplay })
+      return this.buildVideoPlayer({ videoResponse, captionsPromise, storyboardsPromise, autoplayFromPreviousVideo, forceAutoplay })
     } catch (err) {
       this.playerHTML.displayError(err.message, await this.translationsPromise)
     }
@@ -186,11 +186,12 @@ export class PeerTubeEmbed {
 
   private async buildVideoPlayer (options: {
     videoResponse: Response
+    storyboardsPromise: Promise<Response>
     captionsPromise: Promise<Response>
     autoplayFromPreviousVideo: boolean
     forceAutoplay: boolean
   }) {
-    const { videoResponse, captionsPromise, autoplayFromPreviousVideo, forceAutoplay } = options
+    const { videoResponse, captionsPromise, storyboardsPromise, autoplayFromPreviousVideo, forceAutoplay } = options
 
     this.resetPlayerElement()
 
@@ -212,10 +213,17 @@ export class PeerTubeEmbed {
         return { live, video: videoInfo, videoFileToken }
       })
 
-    const [ { video, live, videoFileToken }, translations, captionsResponse, PeertubePlayerManagerModule ] = await Promise.all([
+    const [
+      { video, live, videoFileToken },
+      translations,
+      captionsResponse,
+      storyboardsResponse,
+      PeertubePlayerManagerModule
+    ] = await Promise.all([
       videoInfoPromise,
       this.translationsPromise,
       captionsPromise,
+      storyboardsPromise,
       this.PeertubePlayerManagerModulePromise
     ])
 
@@ -229,6 +237,8 @@ export class PeerTubeEmbed {
       autoplayFromPreviousVideo,
       translations,
       serverConfig: this.config,
+
+      storyboardsResponse,
 
       authorizationHeader: () => this.http.getHeaderTokenValue(),
       videoFileToken: () => videoFileToken,
