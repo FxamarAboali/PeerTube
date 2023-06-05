@@ -1,4 +1,4 @@
-import { HttpStatusCode, LiveVideo, Storyboard, VideoDetails, VideoToken } from '../../../../../shared/models'
+import { HttpStatusCode, LiveVideo, VideoDetails, VideoToken } from '../../../../../shared/models'
 import { logger } from '../../../root-helpers'
 import { AuthHTTP } from './auth-http'
 
